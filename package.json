@@ -1,8 +1,12 @@
 {
   "name": "@a1motion/analytics",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "license": "MIT",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "exit 0;"
   },
