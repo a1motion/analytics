@@ -1,4 +1,3 @@
-const isNode = (typeof process !== 'undefined') && (process.release.name === 'node');
 const fetch = require('fetch-ponyfill')();
 export default function pageview(id, report) {
   let referrer = document.referrer;
@@ -48,12 +47,12 @@ export default function pageview(id, report) {
   }
   const pageview = (extra, fetchOptions) => {
     offload(() => {
-      const data = Object.assign({}, isNode ? {} : {
+      const data = Object.assign({}, {
         v: '1',
         tid: id,
         cid: cid(),
         t: 'pageview',
-        ds: isNode ? 'server' : 'web',
+        ds: 'web',
         z: Math.random().toString().slice(2),
         dr: referrer,
         sr: `${(window.screen || {}).width}x${(window.screen || {}).height}`,
