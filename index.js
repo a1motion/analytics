@@ -65,7 +65,7 @@ export default function pageview(id, report) {
       }, extra);
       fetch(`${report || 'https://www.google-analytics.com/collect'}?${serialize(data)}`, Object.assign({}, {
         method: report ? 'post' : 'get'
-      }, fetchOptions));
+      }, fetchOptions)).then(() => {}).catch(() => {});
       referrer = undefined;
     });
   }
