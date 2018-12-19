@@ -1,4 +1,4 @@
-const fetch = require('fetch-ponyfill')();
+const fetch = require('unfetch');
 export default function pageview(id, report) {
   let referrer = document.referrer;
   function ready(fn) {
