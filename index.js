@@ -1,4 +1,4 @@
-const fetch = require('unfetch');
+import fetch from 'unfetch';
 export default function pageview(id, report) {
   let referrer = document.referrer;
   function ready(fn) {
