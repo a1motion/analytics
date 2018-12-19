@@ -34,7 +34,7 @@ export default function pageview(id, report) {
   }
   const serialize = (obj) => {
     const e = encodeURIComponent;
-    Object.keys(obj).map((key) => {
+    return Object.keys(obj).map((key) => {
       if (obj[key] === undefined) return undefined;
       return `${e(key)}=${e(obj[key])}`;
     }).filter(a => a !== undefined).join('&');
@@ -70,6 +70,13 @@ export default function pageview(id, report) {
     });
   }
   ready(pageview);
+  if ('pushState' in window.history) {
+    const pushState = window.history.pushState;
+    window.history.pushState = function() {
+      pushState.apply(window.history, arguments);
+      pageview();
+    }
+  }
   return pageview;
 }
 export function AnalyticsMiddleware(id) {
