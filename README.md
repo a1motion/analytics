@@ -13,6 +13,7 @@ yarn add @a1motion/analytics
 ```
 import analytics from '@a1motion/analytics`
 
+# Only call once
 analytics('UA-XXXXXXXXX-X')
 
 # Send events

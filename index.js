@@ -103,7 +103,7 @@ const pageview = (type, eventCategory, eventAction, eventLabel, eventValue) => {
     }
   })
 }
-export default function analytics(id) {
+function analytics(id) {
   tid = id
   ready(pageview)
   if (hooked) return
@@ -121,6 +121,10 @@ export default function analytics(id) {
     /* eslint-enable */
   }
 }
-export function event(eventCategory, eventAction, eventLabel, eventValue) {
+
+const event = (eventCategory, eventAction, eventLabel, eventValue) =>
   pageview(`event`, eventCategory, eventAction, eventLabel, eventValue)
-}
+
+analytics.event = event
+
+export default analytics
