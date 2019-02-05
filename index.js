@@ -1,5 +1,6 @@
 import fetch from 'unfetch'
 let tid
+let hooked = false
 const { referrer } = document
 function ready(fn) {
   if (document.readyState != `loading`) {
@@ -105,6 +106,8 @@ const pageview = (type, eventCategory, eventAction, eventLabel, eventValue) => {
 export default function analytics(id) {
   tid = id
   ready(pageview)
+  if (hooked) return
+  hooked = true
   if (`pushState` in window.history) {
     /* eslint-disable */
     const pushState = window.history.pushState
