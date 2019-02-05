@@ -105,7 +105,7 @@ const pageview = (type, eventCategory, eventAction, eventLabel, eventValue) => {
 }
 function analytics(id) {
   tid = id
-  ready(pageview)
+  ready(() => pageview())
   if (hooked) return
   hooked = true
   if (`pushState` in window.history) {
@@ -116,7 +116,7 @@ function analytics(id) {
         history.onpushstate({ state })
       }
       pushState.apply(window.history, arguments)
-      setTimeout(pageview, 50)
+      setTimeout(() => pageview(), 50)
     }
     /* eslint-enable */
   }
