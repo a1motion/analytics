@@ -14,7 +14,7 @@
     "unfetch": "^4.0.1"
   },
   "devDependencies": {
-    "eslint-config-a1motion": "^1.0.2",
+    "eslint-config-a1motion": "^1.2.1",
     "eslint-plugin-prettier": "^3.0.1"
   }
 }
