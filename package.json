@@ -11,7 +11,7 @@
     "test": "exit 0;"
   },
   "dependencies": {
-    "unfetch": "^4.0.1"
+    "unfetch": "^4.1.0"
   },
   "devDependencies": {
     "eslint-config-a1motion": "^1.0.2",
