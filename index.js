@@ -1,24 +1,29 @@
-import fetch from 'unfetch'
-let tid
-let hooked = false
-const { referrer } = document
+import fetch from "unfetch";
+
+let tid;
+let hooked = false;
+const { referrer } = document;
 function ready(fn) {
-  if (document.readyState != `loading`) {
-    fn()
+  if (document.readyState !== `loading`) {
+    fn();
   } else if (document.addEventListener) {
-    document.addEventListener(`DOMContentLoaded`, fn)
+    document.addEventListener(`DOMContentLoaded`, fn);
   } else {
     document.attachEvent(`onreadystatechange`, () => {
-      if (document.readyState != `loading`) fn()
-    })
+      if (document.readyState !== `loading`) {
+        fn();
+      }
+    });
   }
 }
+
 const generateId = () => {
   const s4 = () => {
     return Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
-      .substring(1)
-  }
+      .substring(1);
+  };
+
   return (
     s4() +
     s4() +
@@ -32,35 +37,46 @@ const generateId = () => {
     s4() +
     s4() +
     s4()
-  )
-}
+  );
+};
+
 const cid = () => {
   if (localStorage) {
-    let i = localStorage.getItem(`ga:_cid`)
-    if (i) return i
-    i = generateId()
-    localStorage.setItem(`ga:_cid`, i)
-    return i
-  } else {
-    return generateId()
+    let i = localStorage.getItem(`ga:_cid`);
+    if (i) {
+      return i;
+    }
+
+    i = generateId();
+    localStorage.setItem(`ga:_cid`, i);
+    return i;
   }
-}
-const serialize = obj => {
-  const e = encodeURIComponent
+
+  return generateId();
+};
+
+const serialize = (obj) => {
+  const e = encodeURIComponent;
   return Object.keys(obj)
-    .map(key => {
-      if (obj[key] === undefined) return undefined
-      return `${e(key)}=${e(obj[key])}`
+    .map((key) => {
+      if (obj[key] === undefined) {
+        return undefined;
+      }
+
+      return `${e(key)}=${e(obj[key])}`;
     })
-    .filter(a => a !== undefined)
-    .join(`&`)
-}
-const offload = fn => {
+    .filter((a) => a !== undefined)
+    .join(`&`);
+};
+
+const offload = (fn) => {
   if (window.requestIdleCallback) {
-    return requestIdleCallback(fn)
+    return requestIdleCallback(fn);
   }
-  return setTimeout(fn, 0)
-}
+
+  return setTimeout(fn, 0);
+};
+
 const pageview = (type, eventCategory, eventAction, eventLabel, eventValue) => {
   offload(() => {
     const data = serialize({
@@ -91,23 +107,27 @@ const pageview = (type, eventCategory, eventAction, eventLabel, eventValue) => {
       ea: eventAction || undefined,
       el: eventLabel || undefined,
       ev: eventValue || undefined,
-    })
-    const url = `https://www.google-analytics.com/collect`
+    });
+    const url = `https://www.google-analytics.com/collect`;
     if (navigator.sendBeacon) {
-      navigator.sendBeacon(url, data)
+      navigator.sendBeacon(url, data);
     } else {
       fetch(url, {
         method: `post`,
         body: data,
-      })
+      });
     }
-  })
-}
+  });
+};
+
 function analytics(id) {
-  tid = id
-  ready(() => pageview())
-  if (hooked) return
-  hooked = true
+  tid = id;
+  ready(() => pageview());
+  if (hooked) {
+    return;
+  }
+
+  hooked = true;
   if (`pushState` in window.history) {
     /* eslint-disable */
     const pushState = window.history.pushState
@@ -123,8 +143,8 @@ function analytics(id) {
 }
 
 const event = (eventCategory, eventAction, eventLabel, eventValue) =>
-  pageview(`event`, eventCategory, eventAction, eventLabel, eventValue)
+  pageview(`event`, eventCategory, eventAction, eventLabel, eventValue);
 
-analytics.event = event
+analytics.event = event;
 
-export default analytics
+export default analytics;
