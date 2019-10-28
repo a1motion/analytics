@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "babel-eslint": ">=10.0.2",
-    "eslint": ">=5.12.1",
+    "eslint": ">=6.6.0",
     "eslint-config-a1motion": "3.0.2",
     "eslint-config-prettier": ">=6.0.0",
     "eslint-formatter-pretty": "^2.1.1",
